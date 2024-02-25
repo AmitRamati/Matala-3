@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Register from '../FC/Register'
 import Login from '../FC/Login'
-//import FCApp from '../FC/FCApp'
+
 import Profile from '../FC/Profile'
 import EditDetails from '../FC/EditDetails'
 import SystemAdmin from '../FC/SystemAdmin'
-import Admmm from '../FC/Admmm'
-import Blah from '../FC/Blah'
+//import Admmm from '../FC/Admmm'
+//import Blah from '../FC/Blah'
 //import FCRegi from '../FC/FCRegi'
 
 
