@@ -122,8 +122,33 @@ export default function Register(props) {
 
     //insert input- event 
     const handleChange = (e) => {
-        setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-        // console.log(inputFields.UserName);
+        // if (e.target.name == "Image") {
+        //    // console.log( e.target.files[0]);
+        // // setInputFields({ ...inputFields, [e.target.name]: e.target.files[0].name });
+
+        //     const file = e.target.files[0];
+        //     if (file) {
+        //         const reader = new FileReader();
+
+        //         reader.onload = (event) => {
+        //             // Set the image source to the base64 representation of the image
+        //             setInputFields({ ...inputFields, [e.target.name]: event.target.result });
+        //             //let image1 = event.target.result;
+        //             // setImageSrc(event.target.result);
+        //         };
+
+        //         // Read the contents of the image file
+        //         reader.readAsDataURL(file);
+        //        // console.log("reader",reader);
+        //        // console.log("readerjajja", reader.readAsDataURL(file));
+
+        //     }
+        // }
+        
+            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
+            // console.log(inputFields.UserName);
+        
+
     };
 
     const handleCityChange = (event, newValue) => {
@@ -140,8 +165,8 @@ export default function Register(props) {
         setErrors(validateValues(inputFields));
 
         setSubmitting(true);
-    
-        
+
+
 
     };
 
@@ -150,7 +175,7 @@ export default function Register(props) {
             title: "Good job!",
             text: "Add User Succeeded!",
             icon: "success"
-          });
+        });
 
         setInputFields({
             UserName: "",
@@ -192,7 +217,7 @@ export default function Register(props) {
     return (
         <div>
 
-        
+
             <form>
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2}>
@@ -259,7 +284,7 @@ export default function Register(props) {
                                         {errors.Date}
                                     </p>
                                 ) : null}
-                                <Autocomplete 
+                                <Autocomplete
                                     options={cities}
                                     value={inputFields.City}
                                     onChange={handleCityChange}

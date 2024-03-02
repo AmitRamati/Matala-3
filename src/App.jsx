@@ -6,9 +6,7 @@ import Login from '../FC/Login'
 import Profile from '../FC/Profile'
 import EditDetails from '../FC/EditDetails'
 import SystemAdmin from '../FC/SystemAdmin'
-//import Admmm from '../FC/Admmm'
-//import Blah from '../FC/Blah'
-//import FCRegi from '../FC/FCRegi'
+
 
 
 function App() {

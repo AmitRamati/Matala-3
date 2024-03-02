@@ -11,7 +11,8 @@ import { useState } from 'react';
 
 
 export default function SystemAdmin(props) {
-  //props?= const [RegiList, setRegiList] = useState(props.users);
+  
+  //const [RegiList, setRegiList] = useState(props.users);
 
   const [RegiList, setRegiList] = useState(localStorage.length == 0 ? "" : JSON.parse(localStorage["Users"]));
   const [Rows, setRows] = useState(RegiList.map((item, index) => (
@@ -35,11 +36,15 @@ export default function SystemAdmin(props) {
       let index = Number(selectedCellParams.id) - 1;
       let FieldChg = selectedCellParams.field;
       const UpdatedEditList = [...RegiList];
+     console.log(index, FieldChg);
+     console.log(selectedCellParams);
+     console.log("regi",RegiList);
      
       UpdatedEditList[index][FieldChg] = Rows[index][FieldChg];
-      console.log(UpdatedEditList[index][FieldChg]);
-      localStorage.setItem('Users', JSON.stringify(UpdatedEditList));
-      setRegiList(UpdatedEditList);
+      console.log("Update",UpdatedEditList);
+      console.log("Check",Rows[index][FieldChg]);
+      //localStorage.setItem('Users', JSON.stringify(UpdatedEditList));
+      //setRegiList(UpdatedEditList);
 
 
 
@@ -159,6 +164,7 @@ export default function SystemAdmin(props) {
   const [cellModesModel, setCellModesModel] = React.useState({});
 
   const handleCellFocus = React.useCallback((event) => {
+   
     const row = event.currentTarget.parentElement;
     const id = row.dataset.id;
     const field = event.currentTarget.dataset.field;
@@ -176,6 +182,7 @@ export default function SystemAdmin(props) {
   const handleCellKeyDown = React.useCallback(
     (params, event) => {
       if (cellMode === 'edit') {
+        console.log("params2", params);
         // Prevents calling event.preventDefault() if Tab is pressed on a cell in edit mode
         event.defaultMuiPrevented = true;
       }
@@ -184,16 +191,17 @@ export default function SystemAdmin(props) {
   );
 
   const handleCellEditStop = React.useCallback((params, event) => {
+    console.log("params",params);
     event.defaultMuiPrevented = true;
   }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
     
-      setRows(RegiList.map((item, index) => (
-        { id: index + 1, UserName: item.UserName, Name: item.FirstName + " " + item.LastName, Date: item.Date, Address: item.Street + " " + item.Number + " , " + item.City, Email: item.Email }
-      )));
+  //     setRows(RegiList.map((item, index) => (
+  //       { id: index + 1, UserName: item.UserName, Name: item.FirstName + " " + item.LastName, Date: item.Date, Address: item.Street + " " + item.Number + " , " + item.City, Email: item.Email }
+  //     )));
     
-  }, [])
+  // }, [RegiList])
 
 
 
