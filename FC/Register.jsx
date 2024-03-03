@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -145,7 +146,7 @@ export default function Register(props) {
         // }
         
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-            
+            // 
         
 
     };
