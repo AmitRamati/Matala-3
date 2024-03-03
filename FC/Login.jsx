@@ -62,8 +62,8 @@ export default function Login(props) {
             errors.Password = "Password is incorect. please try again"
         }
 
-        console.log(errors);
-        console.log(loginData);
+        
+        
         return errors;
     }
 
@@ -74,9 +74,9 @@ export default function Login(props) {
 
     const loginUser = (event) => {
         event.preventDefault();
-        console.log("Users", registeredUsers);
+        
         const userExists = registeredUsers.some(user => user.UserName === loginData.UserName && user.Password === loginData.Password);
-        console.log("sign up?", userExists);
+        
         setErrors(validateValues(loginData));
         setLoginNow(true);
 
@@ -85,7 +85,7 @@ export default function Login(props) {
 
     const finishLogin = () => {
         const userLogin = registeredUsers.find(user => user.UserName === loginData.UserName && user.Password === loginData.Password);
-        console.log("user", userLogin);
+        
         let SwalMes = loginData.UserName;
         Swal.fire({
             title: "Hello " + SwalMes,
@@ -113,7 +113,7 @@ export default function Login(props) {
     };
 
     useEffect(() => {
-        console.log("errors", Object.keys(errors).length);
+        
         if (Object.keys(errors).length == 0 && LoginNow) {
             finishLogin();
         }

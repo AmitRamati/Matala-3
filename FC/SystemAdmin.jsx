@@ -1,276 +1,204 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { DataGrid, GridCellModes } from '@mui/x-data-grid';
-
-//import EditToolbar from './EditToolbar';
-import { useEffect } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+  GridRowModes,
+  DataGrid,
+  GridToolbarContainer,
+  GridActionsCellItem,
+  GridRowEditStopReasons,
+} from '@mui/x-data-grid';
+import {
+  randomCreatedDate,
+  randomTraderName,
+  randomId,
+  randomArrayItem,
+} from '@mui/x-data-grid-generator';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 
+function EditToolbar(props) {
+  const { setRows, setRowModesModel } = props;
 
 
-export default function SystemAdmin(props) {
-  
-  //const [RegiList, setRegiList] = useState(props.users);
-
-  const [RegiList, setRegiList] = useState(localStorage.length == 0 ? "" : JSON.parse(localStorage["Users"]));
-  const [Rows, setRows] = useState(RegiList.map((item, index) => (
-    { id: index + 1, UserName: item.UserName, Name: item.FirstName + " " + item.LastName, Date: item.Date, Address: item.Street + " " + item.Number + " , " + item.City, Email: item.Email }
-  )));
-  
-
-  console.log(RegiList);
-
-  function EditToolbar(props) {
-
-    const { selectedCellParams, cellMode, cellModesModel, setCellModesModel } = props;
-
-    const handleSaveOrEdit = () => {
-      if (!selectedCellParams) {
-        return;
-      }
-      //console.log(Number(selectedCellParams.id));
-      console.log(selectedCellParams.field);
-      debugger;
-      let index = Number(selectedCellParams.id) - 1;
-      let FieldChg = selectedCellParams.field;
-      const UpdatedEditList = [...RegiList];
-     console.log(index, FieldChg);
-     console.log(selectedCellParams);
-     console.log("regi",RegiList);
-     
-      UpdatedEditList[index][FieldChg] = Rows[index][FieldChg];
-      console.log("Update",UpdatedEditList);
-      console.log("Check",Rows[index][FieldChg]);
-      //localStorage.setItem('Users', JSON.stringify(UpdatedEditList));
-      //setRegiList(UpdatedEditList);
-
-
-
-     
-      // console.log("noeoeoe", Rows[1].Address);
-      //props.index = Number(selectedCellParams.id);
-      // props.FieldChg = selectedCellParams.field;
-
-      //RegiList[index].FieldChg = "";
-
-      //console.log(cellMode);
-      //console.log(cellModesModel);
-      //console.log(Rows[1].Birthdate);
-
-      //ChangeEdit(index, FieldChg);
-
-      if (selectedCellParams.field == "Name") {
-
-      }
-
-
-      const { id, field } = selectedCellParams;
-      if (cellMode === 'edit') {
-        setCellModesModel({
-          ...cellModesModel,
-          [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.View } },
-        });
-      } else {
-        setCellModesModel({
-          ...cellModesModel,
-          [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.Edit } },
-        });
-      }
-
-
-
-
-    };
-
- 
-
-    function DeleteUser() {
-
-      console.log(selectedCellParams);
-      let indexToRemove = selectedCellParams.id - 1;
-      const UpdatedList = [...RegiList];
-      UpdatedList.splice(indexToRemove, 1);
-      setRegiList(UpdatedList);
-      setRows(UpdatedList.map((item, index) => (
-        { id: index + 1, UserName: item.UserName, Name: item.FirstName + " " + item.LastName, Date: item.Date, Address: item.Street + " " + item.Number + " , " + item.City, Email: item.Email }
-      )));
-      localStorage.setItem('Users', JSON.stringify(UpdatedList));
-
-    };
-
-
-    useEffect(() => {
-
-    }, [RegiList]);
-
-    const handleCancel = () => {
-      if (!selectedCellParams) {
-        return;
-      }
-      const { id, field } = selectedCellParams;
-      setCellModesModel({
-        ...cellModesModel,
-        [id]: {
-          ...cellModesModel[id],
-          [field]: { mode: GridCellModes.View, ignoreModifications: true },
-        },
-      });
-    };
-
-    const handleMouseDown = (event) => {
-      // Keep the focus in the cell
-      event.preventDefault();
-    };
-
-    return (
-      <Box
-        sx={{
-          borderBottom: 1,
-          borderColor: 'divider',
-          p: 1,
-        }}
-      >
-        <Button
-          onClick={handleSaveOrEdit}
-          onMouseDown={handleMouseDown}
-          disabled={!selectedCellParams}
-          variant="outlined"
-          color='secondary'
-        >
-          {cellMode === 'edit' ? 'Save' : 'Edit'}
-        </Button>
-        <Button
-          onClick={handleCancel}
-          onMouseDown={handleMouseDown}
-          disabled={cellMode === 'view'}
-          variant="outlined"
-          color='secondary'
-          sx={{ ml: 1 }}
-        >
-          Cancel
-        </Button>
-        <Button color='secondary' onClick={DeleteUser}>
-          Delete
-        </Button>
-      </Box>
-    );
-  }
-
-
-
-  const [selectedCellParams, setSelectedCellParams] = React.useState(null);
-  const [cellModesModel, setCellModesModel] = React.useState({});
-
-  const handleCellFocus = React.useCallback((event) => {
-   
-    const row = event.currentTarget.parentElement;
-    const id = row.dataset.id;
-    const field = event.currentTarget.dataset.field;
-    setSelectedCellParams({ id, field });
-  }, []);
-
-  const cellMode = React.useMemo(() => {
-    if (!selectedCellParams) {
-      return 'view';
-    }
-    const { id, field } = selectedCellParams;
-    return cellModesModel[id]?.[field]?.mode || 'view';
-  }, [cellModesModel, selectedCellParams]);
-
-  const handleCellKeyDown = React.useCallback(
-    (params, event) => {
-      if (cellMode === 'edit') {
-        console.log("params2", params);
-        // Prevents calling event.preventDefault() if Tab is pressed on a cell in edit mode
-        event.defaultMuiPrevented = true;
-      }
-    },
-    [cellMode],
+  return (
+    <div></div>
   );
+}
 
-  const handleCellEditStop = React.useCallback((params, event) => {
-    console.log("params",params);
-    event.defaultMuiPrevented = true;
-  }, []);
+export default function SystemAdmin() {
+  const [RegiList, setRegiList] = useState(localStorage.length == 0 ? "" : JSON.parse(localStorage["Users"]));
+  
+  const [rows, setRows] = useState(RegiList.map((item, index) => (
+    { id: index + 1, UserName: item.UserName, Name: item.FirstName + " " + item.LastName, Date: item.Date, Address: item.Street + " " + item.Number + " " + item.City, Email: item.Email, Password: item.Password, ConfirmPassword: item.ConfirmPassword, Image: item.Image }
+  )));
 
-  // useEffect(() => {
-    
-  //     setRows(RegiList.map((item, index) => (
-  //       { id: index + 1, UserName: item.UserName, Name: item.FirstName + " " + item.LastName, Date: item.Date, Address: item.Street + " " + item.Number + " , " + item.City, Email: item.Email }
-  //     )));
-    
-  // }, [RegiList])
+  const [rowModesModel, setRowModesModel] = React.useState({});
 
 
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
 
-  //let Rows = [];
-  //setRows = RegiList.map((item, index) => (
-  //{ id: index + 1, UserName: item.UserName, Name: item.FirstName + " " + item.LastName, Date: item.Date, Address: item.Street + " " + item.Number + " , " + item.City, Email: item.Email }
-  // ));
-  console.log("rows", Rows);
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
 
-  //console.log(Rows[0].Date);
-  // console.log(EditToolbar.props.index);
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
+
+  useEffect(() => {
+    // Update RegiList when rows change
+    const updatedRegiList = rows.map((row) => {
+      const [firstName, lastName] = (row.Name || '').split(' ');
+      let [Street, Number, City, City2] = (row.Address || '').split(' ');
+      if (City2 == "undefined") {
+        City2 = "";
+      }
+     
+      return {
+        UserName: row.UserName,
+        FirstName: firstName || '',
+        LastName: lastName || '',
+        Date: row.Date || '',
+        Street: Street || '',
+        Number: Number || '',
+        City: City + " " + City2 || '',
+        Email: row.Email || '',
+        Password: row.Password,
+        ConfirmPassword: row.ConfirmPassword,
+        Image: row.Image,
+      };
+    });
+
+
+    console.log("updated", updatedRegiList);
+    localStorage.setItem('Users', JSON.stringify(updatedRegiList));
+
+  }, [rows]);
+
 
   const columns = [
-
     { field: 'UserName', headerName: 'User Name', width: 180, editable: true },
     { field: 'Name', headerName: 'Name', width: 180, editable: true },
     { field: 'Date', headerName: 'Birthdate', width: 180, editable: true },
     { field: 'Address', headerName: 'Address', width: 180, editable: true },
     { field: 'Email', headerName: 'Email', width: 180, editable: true },
+
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{
+                color: 'primary.main',
+              }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
   ];
 
-  //let ID=props.index;
-
-  //let FieldChg=props.FieldChg;
-
-  //RegiList[ID].FieldChg = Rows[ID].FieldChg;
-
-  //function ChangeEdit(ID, FieldChg) {
-
-  // RegiList[ID].FieldChg = Rows[ID].FieldChg;
-  console.log(RegiList);
-  //}
-
-
-
-
-
-
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <Box
+      sx={{
+        height: 500,
+        width: '100%',
+        '& .actions': {
+          color: 'text.secondary',
+        },
+        '& .textPrimary': {
+          color: 'text.primary',
+        },
+      }}
+    >
       <DataGrid
-        rows={Rows}
+        rows={rows}
         columns={columns}
-        onCellKeyDown={handleCellKeyDown}
-        cellModesModel={cellModesModel}
-        onCellEditStop={handleCellEditStop}
-        onCellModesModelChange={(model) => setCellModesModel(model)}
+        editMode="row"
+        rowModesModel={rowModesModel}
+        onRowModesModelChange={handleRowModesModelChange}
+        onRowEditStop={handleRowEditStop}
+        processRowUpdate={processRowUpdate}
         slots={{
           toolbar: EditToolbar,
         }}
         slotProps={{
-          toolbar: {
-            cellMode,
-            selectedCellParams,
-            setSelectedCellParams,
-            cellModesModel,
-            setCellModesModel,
-
-          },
-          cell: {
-            onFocus: handleCellFocus,
-          },
+          toolbar: { setRows, setRowModesModel },
         }}
       />
-    </div>
+    </Box>
   );
 }
-
-
-
-
-

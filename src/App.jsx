@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Register from '../FC/Register'
 import Login from '../FC/Login'
-
 import Profile from '../FC/Profile'
 import EditDetails from '../FC/EditDetails'
 import SystemAdmin from '../FC/SystemAdmin'
+
 
 
 
@@ -58,22 +58,18 @@ function App() {
     setUser(userProf);
   }
 
-  // {sign == "AdminS" ? <Admmm users={users}></Admmm> : ""}
-
-
-
   return (
 
     <>
-            {sign == "sign-in" ? <Login sendUser={getUser} sendSign={getSign}></Login> : ""}
+      {sign == "sign-in" ? <Login sendUser={getUser} sendSign={getSign}></Login> : ""}
 
-{sign == "sign-Up" ? <Register sendSign={getSign}></Register> : ""}
+      {sign == "sign-Up" ? <Register sendSign={getSign}></Register> : ""}
 
-     {sign == "login" ? <Profile user={user} LogOutUser={LogoutFunc} sendUserToEdit={userToEdit} canEdit={goEdit}></Profile> : ""}
+      {sign == "login" ? <Profile user={user} LogOutUser={LogoutFunc} sendUserToEdit={userToEdit} canEdit={goEdit}></Profile> : ""}
 
       {sign == "עדכון" ? <EditDetails user={UserToEdit} users={users} sendSign={getSign} userEdited={UserProf} ></EditDetails> : ""}
 
-    {sign == "AdminS" ? <SystemAdmin users={users}></SystemAdmin> : ""}
+      {sign == "AdminS" ? <SystemAdmin users={users}></SystemAdmin> : ""}
 
 
     </>

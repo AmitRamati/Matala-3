@@ -12,8 +12,8 @@ export default function EditToolbar(props) {
     if (!selectedCellParams) {
       return;
     }
-    console.log(Number(selectedCellParams.id));
-    console.log(selectedCellParams.field);
+    
+    
 
     //let index = Number(selectedCellParams.id);
     //let FieldChg = selectedCellParams.field;
@@ -23,9 +23,9 @@ export default function EditToolbar(props) {
 
     //RegiList[index].FieldChg = "";
 
-    //console.log(cellMode);
-    //console.log(cellModesModel);
-    //console.log(Rows[1].Birthdate);
+    //
+    //
+    //
 
     //ChangeEdit(index, FieldChg);
 
@@ -53,7 +53,7 @@ export default function EditToolbar(props) {
   };
 
   function DeleteUser() {
-    console.log("fm");
+    
   };
 
   const handleCancel = () => {

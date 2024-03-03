@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-//import  '/src/App.css';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -114,8 +113,8 @@ export default function Register(props) {
             errors.Number = "Please enter a valid Number"
         }
 
-        console.log(errors);
-        console.log(inputFields);
+        
+        
         return errors;
     };
 
@@ -123,7 +122,7 @@ export default function Register(props) {
     //insert input- event 
     const handleChange = (e) => {
         // if (e.target.name == "Image") {
-        //    // console.log( e.target.files[0]);
+        //    // 
         // // setInputFields({ ...inputFields, [e.target.name]: e.target.files[0].name });
 
         //     const file = e.target.files[0];
@@ -139,14 +138,14 @@ export default function Register(props) {
 
         //         // Read the contents of the image file
         //         reader.readAsDataURL(file);
-        //        // console.log("reader",reader);
-        //        // console.log("readerjajja", reader.readAsDataURL(file));
+        //        // 
+        //        // 
 
         //     }
         // }
         
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-            // console.log(inputFields.UserName);
+            
         
 
     };
@@ -194,14 +193,14 @@ export default function Register(props) {
         const NewUsers = [...registeredUsers, inputFields];
         setUserSubmissions(NewUsers);
         localStorage.setItem('Users', JSON.stringify(NewUsers));
-        console.log(inputFields);
+        
         //props.MoveToLogin(true);
         //props.regiToLogin(NewUsers);
     };
 
 
     useEffect(() => {
-        console.log("errors", Object.keys(errors).length);
+        
         if (Object.keys(errors).length == 0 && submitting) {
             finishSubmit();
         }

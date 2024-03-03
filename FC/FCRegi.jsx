@@ -8,8 +8,8 @@ function EditToolbar(props) {
     if (!selectedCellParams) {
       return;
     }
-    console.log(Number(selectedCellParams.id));
-    console.log(selectedCellParams.field);
+    
+    
 
 
     let index = Number(selectedCellParams.id);
@@ -17,9 +17,9 @@ function EditToolbar(props) {
 
     //RegiList[index].FieldChg = "";
 
-    //console.log(cellMode);
-    //console.log(cellModesModel);
-    //console.log(Rows[1].Birthdate);
+    //
+    //
+    //
 
     ChangeEdit(index, FieldChg);
 

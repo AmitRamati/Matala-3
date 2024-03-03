@@ -26,10 +26,10 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function EditDetails(props) {
 
   let userToEdit = props.user;
-  console.log(userToEdit);
+  
 
   const UsersRegiList = props.users;
-  console.log(UsersRegiList);
+  
 
 
 
@@ -141,8 +141,8 @@ export default function EditDetails(props) {
       errors.Number = "Please enter a valid Number"
     }
 
-    console.log(errors);
-    console.log(inputFields);
+    
+    
     return errors;
   };
 
@@ -150,7 +150,7 @@ export default function EditDetails(props) {
   //insert input- event 
   const handleChange = (e) => {
     setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-    // console.log(inputFields.UserName);
+    // 
   };
 
   const handleCityChange = (event, newValue) => {
@@ -176,7 +176,7 @@ export default function EditDetails(props) {
     
     let localUsers = JSON.parse(localStorage["Users"]);
     const indexToUpdate = localUsers.findIndex(element => element.Email === userToEdit.Email);
-    console.log(indexToUpdate);
+    
     if(indexToUpdate!= -1){
       localUsers[indexToUpdate]=inputFields;
 
@@ -214,7 +214,7 @@ export default function EditDetails(props) {
 
 
   useEffect(() => {
-    console.log("errors", Object.keys(errors).length);
+    
     if (Object.keys(errors).length == 0 && submitting) {
       finishSubmit();
     }
@@ -223,7 +223,7 @@ export default function EditDetails(props) {
 
 
   const EditNow = (e) => {
-    //console.log(e.target.id);
+    //
     setEditFields({ ...EditFields, [e.target.id]: true });
 
   }

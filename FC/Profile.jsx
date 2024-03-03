@@ -9,7 +9,7 @@ export default function Profile(props) {
   let userProfile = props.user;
 
   const Gamelink = 'https://games.yo-yoo.co.il/games_play.php?game=729';
-  console.log(userProfile);
+  
 
 function logoutUser() {
   
