@@ -122,10 +122,10 @@ export default function Register(props) {
 
     //insert input- event 
     const handleChange = (e) => {
-        // if (e.target.name == "Image") {
-        //    // 
-        // // setInputFields({ ...inputFields, [e.target.name]: e.target.files[0].name });
-
+        if (e.target.name == "Image") {
+           
+        setInputFields({ ...inputFields, [e.target.name]: e.target.files[0] });
+        }
         //     const file = e.target.files[0];
         //     if (file) {
         //         const reader = new FileReader();
@@ -144,9 +144,11 @@ export default function Register(props) {
 
         //     }
         // }
+        else{
+
         
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-            // 
+            } 
         
 
     };
@@ -246,7 +248,7 @@ export default function Register(props) {
                                     <input required type="file"
                                         id="ImageTB"
                                         accept=".jpg, .jpeg"
-                                        value={inputFields.Image}
+                                       
                                         name="Image" onChange={handleChange}>
                                     </input>
                                 </div><br></br><br></br>

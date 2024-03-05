@@ -274,14 +274,14 @@ export default function EditDetails(props) {
                 ) : null}
 
 
-                <Typography>Image: {userToEdit.Image}</Typography> <EditIcon id="ImageEdit" onClick={EditNow}></EditIcon>
+                <Typography>Image: </Typography> <EditIcon id="ImageEdit" onClick={EditNow}></EditIcon>
                 {EditFields.ImageEdit ? (
                   <div id="imgDiv">
                     <label>Image</label>
                     <input required type="file"
                       id="ImageTB"
                       accept=".jpg, .jpeg"
-                      value={inputFields.Image}
+                     
                       name="Image" onChange={handleChange}>
                     </input>
                   </div>) : null}<br></br><br></br>
